@@ -13,7 +13,7 @@ public class CircularBufferMonitor implements BufferIF {
         size = 0;
     }
 
-    public synchronized boolean offer(int value) throws InterruptedException {
+    public synchronized void offer(int value) throws InterruptedException {
         while (size == buffer.length) {
             wait(); // The buffer is full
         }
@@ -21,10 +21,9 @@ public class CircularBufferMonitor implements BufferIF {
         tail = (tail + 1) % buffer.length;
         size++;
         notifyAll();
-        return true;
     }
 
-    public synchronized Integer poll() throws InterruptedException {
+    public synchronized int poll() throws InterruptedException {
         while (size == 0) {
             wait(); // The buffer is empty
         }

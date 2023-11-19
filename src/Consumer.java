@@ -19,13 +19,9 @@ public class Consumer extends Thread {
 
 				Thread.sleep((int) (Math.random() * 1000));
 
-				Integer r = buffer.poll();
-				if (r == null) {
-					System.out.println(getName() + " no value!");
-				} else {
-					sum += r;
-					System.out.println(getName() + " read value: " + r);
-				}
+				int r = buffer.poll();
+				System.out.println(getName() + " read value: " + r);
+				sum += r;
 			}
 		} catch (InterruptedException e) {
 

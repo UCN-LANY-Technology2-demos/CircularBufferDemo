@@ -1,5 +1,5 @@
 
 public interface BufferIF {
-	boolean offer(int value) throws InterruptedException;
-	Integer poll() throws InterruptedException;
+	void offer(int value) throws InterruptedException;
+	int poll() throws InterruptedException;
 }
