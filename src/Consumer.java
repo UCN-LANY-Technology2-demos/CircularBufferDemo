@@ -1,9 +1,9 @@
 
 public class Consumer extends Thread {
 
-	CircularBuffer buffer;
+	BufferIF buffer;
 
-	public Consumer(CircularBuffer buffer) {
+	public Consumer(BufferIF buffer) {
 		super("Consumer");
 
 		this.buffer = buffer;
@@ -15,13 +15,17 @@ public class Consumer extends Thread {
 		int sum = 0;
 
 		try {
-			for (int v = 1; v <= 8; v++) {
+			for (int v = 1; v <= 20; v++) {
 
-				Thread.sleep((int) (Math.random() * 3001));
+				Thread.sleep((int) (Math.random() * 1000));
 
-				int r = buffer.getValue();
-				sum += r;
-				System.out.println(getName() + " read value: " + r);
+				Integer r = buffer.poll();
+				if (r == null) {
+					System.out.println(getName() + " no value!");
+				} else {
+					sum += r;
+					System.out.println(getName() + " read value: " + r);
+				}
 			}
 		} catch (InterruptedException e) {
 

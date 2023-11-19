@@ -2,14 +2,13 @@
 public class Program {
 
 	public static void main(String[] args) {
-		CircularBuffer buffer = new CircularBuffer();
+		
+		BufferIF buffer = new CircularBuffer(6);
 
 		Producer producer = new Producer(buffer);
 		Consumer consumer = new Consumer(buffer);
 
-		producer.start();
-
-		
+		producer.start();		
 		consumer.start();
 	}
 

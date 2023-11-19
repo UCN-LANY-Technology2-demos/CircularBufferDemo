@@ -1,9 +1,9 @@
 
 public class Producer extends Thread {
-	
-	CircularBuffer buffer;
 
-	public Producer(CircularBuffer buffer) {
+	BufferIF buffer;
+
+	public Producer(BufferIF buffer) {
 		super("Producer");
 
 		this.buffer = buffer;
@@ -12,12 +12,13 @@ public class Producer extends Thread {
 	@Override
 	public void run() {
 		try {
-			for (int v = 1; v <= 8; v++) {
-
-				Thread.sleep((int) (Math.random() * 3001));
-
-				System.out.println(getName() + " producing value: " + v);
-				this.buffer.setValue(v);
+			for (int v = 1; v <= 20; v++) {
+				Thread.sleep((int) (Math.random() * 500));
+				if(buffer.offer(v)) {
+					System.out.println(getName() + " producing value: " + v);					
+				} else {
+					System.out.println(getName() + " no room for value: " + v);
+				}
 			}
 		} catch (InterruptedException e) {
 
